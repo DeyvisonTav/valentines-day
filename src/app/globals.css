@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg-0: #0b0510;
+  --color-bg-1: #140a20;
+  --color-bg-2: #20102e;
+  --color-rose: #ff7ec0;
+  --color-violet: #b06bff;
+  --color-foreground: #f3e9ff;
+  --color-muted: #c8b6e0;
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--color-foreground);
+  font-family: var(--font-body), system-ui, sans-serif;
+  /* Nebulosa romântica à meia-noite: violeta profundo com brilho difuso. */
+  background-color: #0b0510;
+  background-image:
+    radial-gradient(
+      120% 90% at 18% 12%,
+      rgba(176, 107, 255, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      120% 90% at 84% 22%,
+      rgba(255, 126, 192, 0.18),
+      transparent 58%
+    ),
+    radial-gradient(140% 120% at 50% 120%, #20102e, #140a20 45%, #0b0510 80%);
+  background-attachment: fixed;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Vinheta forte: escurece as bordas pra dar foco cinematográfico no centro. */
+.vignette::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  background: radial-gradient(
+    115% 95% at 50% 45%,
+    transparent 52%,
+    rgba(5, 2, 10, 0.55) 82%,
+    rgba(3, 1, 6, 0.9) 100%
+  );
+}
+
+/* Grão sutil sobre toda a cena. */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 31;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+/* Foco visível e elegante pra acessibilidade (botões/links). */
+:focus-visible {
+  outline: 2px solid var(--color-rose);
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
